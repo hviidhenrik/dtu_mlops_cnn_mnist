@@ -1,13 +1,12 @@
-from typing import Union, Any, List, Tuple, Dict
+from typing import Any, Dict, Tuple
 
-import numpy
-import torch
-from torch.utils.data import TensorDataset
-import matplotlib.pyplot as plt
 import numpy as np
+import torch
+from numpy.core.records import ndarray
+from torch.utils.data import TensorDataset
 
 
-def _load_and_concat_all_train_data_files(path: str) -> Dict[str, np.array]:
+def _load_and_concat_all_train_data_files(path: str) -> Dict[str, ndarray]:
     """
     Internal function used by mnist(). Loads all the training data files for the MNIST model
 
@@ -16,7 +15,7 @@ def _load_and_concat_all_train_data_files(path: str) -> Dict[str, np.array]:
     """
     train_images = []
     train_labels = []
-    for i in range(1):
+    for i in range(5):
         train = np.load(path + f"train_{i}.npz")
         train_images.append(train["images"])
         train_labels.append(train["labels"])
@@ -29,7 +28,7 @@ def _load_and_concat_all_train_data_files(path: str) -> Dict[str, np.array]:
     }
 
 
-def mnist(path: str = None) -> Tuple[Any, Any]:
+def mnist(path: str) -> Tuple[Any, Any]:
     """
     Loads all the training data and test data for the MNIST model.
 
@@ -42,7 +41,7 @@ def mnist(path: str = None) -> Tuple[Any, Any]:
 
 
 def convert_mnist_to_tensor_dataset(
-    train: np.array, test: np.array
+        train: np.array, test: ndarray
 ) -> Tuple[TensorDataset, TensorDataset]:
     """
     Converts training and test data from numpy arrays to torch TensorDataset
@@ -61,7 +60,7 @@ def convert_mnist_to_tensor_dataset(
 
 
 def save_train_and_test_as_tensor_datasets(
-    train: TensorDataset, test: TensorDataset, output_filepath: str
+        train: TensorDataset, test: TensorDataset, output_filepath: str
 ) -> None:
     """
     Saves the training and test data as TensorDataset files

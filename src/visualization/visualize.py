@@ -1,14 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from numpy.core.records import ndarray
 
 
 def visualize_mnist_digits(
-    x_array: np.array, predicted_label: np.int64, savepath: str
+    x_array: ndarray, predicted_label: np.int64, savepath: str
 ) -> None:
     """
-    Takes image data and corresponding labels and saves a plot of the digits with the corresponding predicted labels
+    Takes image data and corresponding labels and saves a plot of the
+    digits with the corresponding predicted labels
 
-    :param x_array: numpy array with the image data. Must have dimension (N, 28, 28), where N is the number of images
+    :param x_array: numpy array with the image data.
+    Must have dimension (N, 28, 28), where N is the number of images
     :param predicted_label: a numpy array of predicted labels
     :param savepath: location to save the plots to
     """

@@ -1,8 +1,5 @@
-from typing import Any
-
 import click
-import numpy as np
-import torch
+
 from src.models.model import *
 from src.visualization.visualize import *
 
