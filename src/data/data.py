@@ -1,8 +1,7 @@
-from typing import Union, Any, List
+from typing import Union, Any, List, Tuple
 
 import numpy
 import torch
-from torchvision import transforms
 from torch.utils.data import TensorDataset
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,7 +10,7 @@ import numpy as np
 def _load_and_concat_all_train_data_files(path):
     train_images = []
     train_labels = []
-    for i in range(5):
+    for i in range(1):
         train = np.load(path + f"train_{i}.npz")
         train_images.append(train["images"])
         train_labels.append(train["labels"])
@@ -21,7 +20,6 @@ def _load_and_concat_all_train_data_files(path):
 
 
 def mnist(path: str = None):
-    path = "G:/HHH_projects/dtu_mlops/data/corruptmnist/" if path is None else path
     train = _load_and_concat_all_train_data_files(path)
     test = np.load(path + "test.npz")
     return train, test
@@ -32,6 +30,30 @@ def convert_mnist_to_tensor_dataset(train, test):
     test_x, test_y = torch.Tensor(test["images"]).view(-1, 28, 28), torch.Tensor(test["labels"])
     train = TensorDataset(train_x, train_y)
     test = TensorDataset(test_x, test_y)
+    return train, test
+
+
+def save_train_and_test_as_tensor_datasets(train: Any, test: Any, output_filepath: str) -> None:
+    """
+
+    :param train:
+    :param test:
+    :param output_filepath:
+    :return:
+    """
+    torch.save(train, output_filepath + "train.pt")
+    torch.save(test, output_filepath + "test.pt")
+
+
+def load_train_and_test_tensor_datasets(filepath: str) -> Tuple[Any, Any]:
+    """
+    Function that loads train and test sets from saved tensor datasets
+
+    :param filepath: the location of the datasets
+    :return: train and test datasets
+    """
+    train = torch.load(filepath + "train.pt")
+    test = torch.load(filepath + "test.pt")
     return train, test
 
 
