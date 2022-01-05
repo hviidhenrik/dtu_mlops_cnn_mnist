@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import argparse
+import os
 
 import numpy as np
 import torch.optim as optim
@@ -107,6 +108,7 @@ def main():
         scheduler.step()
 
     if args.save_model:
+        os.makedirs("models/", exist_ok=True)
         torch.save(model, "models/" + "mnist_cnn.pt")
 
     # plot loss and accuracy curves
