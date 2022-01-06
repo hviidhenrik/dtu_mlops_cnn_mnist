@@ -33,3 +33,30 @@ can be given via the command line. A learning curve will be saved to reports/fig
 
 I did not manage to get the Makefile working. I have some conflicting installation on 
 my computer, it seems, that prevents make from working.
+
+
+## Profiling with cProfile and snakeviz
+To profile runtime of a Python script with cProfile, use e.g.:
+    
+    python -m cProfile -s time -o .\src\models\VAE\vae_mnist_working.prof .\src\models\VAE\vae_mnist_working.py
+
+This makes a profile of the script "vae_mnist_working.py" and stores the result as a 
+.prof file (for Snakeviz) "vae_mnist_working.prof".
+
+Next, we call Snakeviz to visualize the profiling results in the browser:
+
+    snakeviz src/models/VAE/vae_mnist_working.prof
+
+The profiling column `tottime` is the total time spent in a particular 
+function *alone*, whereas `cumtime` is the total time spent in the particular 
+function *plus* all functions called by it. 
+
+Comparing the results in `vae_mnist_working.prof` and 
+`vae_mnist_working_optimized.prof`, respectively, shows that a small 
+optimization yielded 3 times faster run speed overall. Simply 
+converting the dataset to `TensorDataset` in the beginning of the script, 
+before training the model was enough:
+
+    train_dataset = TensorDataset(train_dataset.data.type(torch.float32) / 255, train_dataset.targets)
+    test_dataset = TensorDataset(test_dataset.data.type(torch.float32) / 255, test_dataset.targets)
+

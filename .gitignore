@@ -79,6 +79,7 @@ target/
 /data/
 archived/
 *ubyte*
+wandb/
 
 # Mac OS-specific storage files
 .DS_Store
