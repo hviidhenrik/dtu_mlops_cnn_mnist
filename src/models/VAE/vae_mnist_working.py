@@ -11,7 +11,7 @@ import wandb
 from torch.optim import Adam
 from torch.utils.data import DataLoader, TensorDataset
 from torchvision.datasets import MNIST
-from torchvision.utils import save_image, make_grid
+from torchvision.utils import make_grid, save_image
 
 # Model Hyperparameters
 dataset_path = "datasets"
@@ -21,8 +21,8 @@ x_dim = 784
 
 # hyperparams
 batch_size = 100
-hidden_dim = 20
-latent_dim = 20
+hidden_dim = 80
+latent_dim = 40
 lr = 1e-3
 epochs = 10
 
@@ -78,8 +78,8 @@ class Encoder(nn.Module):
 
     @staticmethod
     def reparameterization(
-            mean,
-            std,
+        mean,
+        std,
     ):
         epsilon = torch.rand_like(std)
         z = mean + std * epsilon
@@ -166,10 +166,14 @@ for epoch in range(epochs):
     reconstructed_images = make_grid(x_hat.view(batch_size, 1, 28, 28))
     generated_images = make_grid(generated_images.view(batch_size, 1, 28, 28))
 
-    wandb.log({"epoch_avg_loss": epoch_avg_loss,
-               "input_images": wandb.Image(input_images),
-               "reconstructed_images": wandb.Image(reconstructed_images),
-               "generated_images": wandb.Image(generated_images)})
+    wandb.log(
+        {
+            "epoch_avg_loss": epoch_avg_loss,
+            "input_images": wandb.Image(input_images),
+            "reconstructed_images": wandb.Image(reconstructed_images),
+            "generated_images": wandb.Image(generated_images),
+        }
+    )
 print("Finish!!")
 
 # Generate reconstructions

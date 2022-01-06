@@ -15,12 +15,12 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 
-from src.models.VAE.model import Encoder, Decoder, Model
+from src.models.VAE.model import Decoder, Encoder, Model
 
 
 @hydra.main(config_path="../../config", config_name="config.yaml")
 def main(cfg: DictConfig) -> None:
-    dataset_path = '~/datasets'
+    dataset_path = "~/datasets"
     cuda = False
     DEVICE = torch.device("cuda" if cuda else "cpu")
     x_dim = 784
@@ -34,10 +34,16 @@ def main(cfg: DictConfig) -> None:
     # Data loading
     mnist_transform = transforms.Compose([transforms.ToTensor()])
 
-    train_dataset = MNIST(dataset_path, transform=mnist_transform, train=True, download=True)
-    test_dataset = MNIST(dataset_path, transform=mnist_transform, train=False, download=True)
+    train_dataset = MNIST(
+        dataset_path, transform=mnist_transform, train=True, download=True
+    )
+    test_dataset = MNIST(
+        dataset_path, transform=mnist_transform, train=False, download=True
+    )
 
-    train_loader = DataLoader(dataset=train_dataset, batch_size=cfg.batch_size, shuffle=True)
+    train_loader = DataLoader(
+        dataset=train_dataset, batch_size=cfg.batch_size, shuffle=True
+    )
     test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
     encoder = Encoder(input_dim=x_dim, hidden_dim=hidden_dim, latent_dim=latent_dim)
@@ -50,8 +56,10 @@ def main(cfg: DictConfig) -> None:
     BCE_loss = nn.BCELoss()
 
     def loss_function(x, x_hat, mean, log_var):
-        reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction='sum')
-        KLD = - 0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
+        reproduction_loss = nn.functional.binary_cross_entropy(
+            x_hat, x, reduction="sum"
+        )
+        KLD = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
 
         return reproduction_loss + KLD
 
@@ -74,7 +82,13 @@ def main(cfg: DictConfig) -> None:
 
             loss.backward()
             optimizer.step()
-        print("\tEpoch", epoch + 1, "complete!", "\tAverage Loss: ", overall_loss / (batch_idx * batch_size))
+        print(
+            "\tEpoch",
+            epoch + 1,
+            "complete!",
+            "\tAverage Loss: ",
+            overall_loss / (batch_idx * batch_size),
+        )
     print("Finish!!")
 
     # save weights
@@ -89,15 +103,20 @@ def main(cfg: DictConfig) -> None:
             x_hat, _, _ = model(x)
             break
 
-    save_image(x.view(batch_size, 1, 28, 28), 'reports/figures/VAE/orig_data.png')
-    save_image(x_hat.view(batch_size, 1, 28, 28), 'reports/figures/VAE/reconstructions.png')
+    save_image(x.view(batch_size, 1, 28, 28), "reports/figures/VAE/orig_data.png")
+    save_image(
+        x_hat.view(batch_size, 1, 28, 28), "reports/figures/VAE/reconstructions.png"
+    )
 
     # Generate samples
     with torch.no_grad():
         noise = torch.randn(batch_size, latent_dim)
         generated_images = decoder(noise)
 
-    save_image(generated_images.view(batch_size, 1, 28, 28), 'reports/figures/VAE/generated_sample.png')
+    save_image(
+        generated_images.view(batch_size, 1, 28, 28),
+        "reports/figures/VAE/generated_sample.png",
+    )
 
 
 if __name__ == "__main__":

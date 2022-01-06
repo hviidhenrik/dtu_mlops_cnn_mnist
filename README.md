@@ -8,9 +8,25 @@ It implements a neural network toy model to predict images from a corrupted MNIS
 The model is not the focus, rather the structure, and practical aspects of the
 project repository.
 
-## Setup
+The following notes are for my own learning and easy recalling of the used frameworks.
 
-First install all requirements by running 
+## Setting up a Cookiecutter project structure
+To use the cookiecutter structure for Python, first `pip install cookiecutter` and 
+then run in the terminal: 
+`cookiecutter https://drivendata.github.io/cookiecutter-data-science/`
+This will fetch the template structure and guide you through a short setup process,
+naming the project, its repository, Python version etc.
+
+## Updating requirements.txt file
+Use `pip list --format=freeze > requirements.txt` to update the requirements.txt file.
+I tried the `pipreqs` package, but this doesn't seem to detect all the imported 
+modules in the project files. Moreover, it seems to not be able to detect the installed 
+version of each module, as it simply scans the project files and not the actual 
+environment with the installed modules. Therefore, it simply puts the newest version 
+of the found modules, which can cause compatibility issues in some cases. 
+
+## Setup
+First install all requirements by running:
 
     pip install -r requirements.txt
 
@@ -59,4 +75,14 @@ before training the model was enough:
 
     train_dataset = TensorDataset(train_dataset.data.type(torch.float32) / 255, train_dataset.targets)
     test_dataset = TensorDataset(test_dataset.data.type(torch.float32) / 255, test_dataset.targets)
+
+## Monitoring with Weights and Biases
+Model training can be monitored using the framework called Weights 
+and Biases: https://wandb.ai/hviidhenrik. This is implemented in the VAE example 
+"vae_mnist_working.py". Specifically, at the end of each training epoch, it logs: 
+   - average batch loss over the entire epoch
+   - visualization of some test input digits for the VAE
+   - visualization of the reconstructions based on the input digits
+   - visualization of generated samples using Gaussian noise fed through 
+the trained decoder
 

@@ -80,6 +80,7 @@ target/
 archived/
 *ubyte*
 wandb/
+outputs/
 
 # Mac OS-specific storage files
 .DS_Store
@@ -91,3 +92,4 @@ wandb/
 # Mypy cache
 .mypy_cache/'
 /data
+/outputs/
