@@ -78,6 +78,7 @@ target/
 # exclude archive and data from source control by default
 /data/
 archived/
+*ubyte*
 
 # Mac OS-specific storage files
 .DS_Store
