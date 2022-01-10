@@ -26,4 +26,7 @@ jobs:
       run: |
         pip install isort
         isort .
+    - name: Type checking
+        pip install mypy
+        mypy .
 

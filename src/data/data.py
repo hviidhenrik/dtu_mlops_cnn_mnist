@@ -45,7 +45,7 @@ def mnist(path: str, **kwargs) -> Tuple[Any, Any]:
 
 
 def convert_mnist_to_tensor_dataset(
-    train: np.array, test: ndarray
+    train: ndarray, test: ndarray
 ) -> Tuple[TensorDataset, TensorDataset]:
     """
     Converts training and test data from numpy arrays to torch TensorDataset
