@@ -7,4 +7,3 @@ _PATH_DATA_MNIST_PROCESSED = os.path.join(_PATH_DATA, "processed/")
 _PATH_DATA_MNIST_PROCESSED_TEST = os.path.join(_PATH_DATA, "test/")
 _PATH_SAVED_MODELS = os.path.join(_PROJECT_ROOT, "models")  # saved models
 _CNN_MODEL_PATH = os.path.join(_PATH_SAVED_MODELS, "cnn_mnist.pt")
-

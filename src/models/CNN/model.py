@@ -1,8 +1,8 @@
 from __future__ import print_function
 
-import pytest
 from typing import Any
 
+import pytest
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -70,6 +70,7 @@ def train(args: Any, model: Any, train_loader: Any, optimizer: Any, epoch: int) 
                     loss.item(),
                 )
             )
+
 
 @pytest.mark.skip()
 def test(model: Any, test_loader: Any):

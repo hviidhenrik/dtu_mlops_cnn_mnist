@@ -6,7 +6,9 @@ from numpy.core.records import ndarray
 from torch.utils.data import TensorDataset
 
 
-def _load_and_concat_all_train_data_files(path: str, num_files: int = 5) -> Dict[str, ndarray]:
+def _load_and_concat_all_train_data_files(
+    path: str, num_files: int = 5
+) -> Dict[str, ndarray]:
     """
     Internal function used by mnist(). Loads all the training data files for the MNIST model
 
@@ -24,7 +26,9 @@ def _load_and_concat_all_train_data_files(path: str, num_files: int = 5) -> Dict
 
     return {
         "images": np.array(train_images).reshape(-1, 28, 28),
-        "labels": np.array(train_labels).reshape(-1,),
+        "labels": np.array(train_labels).reshape(
+            -1,
+        ),
     }
 
 

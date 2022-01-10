@@ -9,7 +9,9 @@ def main():
     cleaned data ready to be used in tests (saved in ../test).
     """
 
-    parser = argparse.ArgumentParser(description="Make a small dataset for unit testing")
+    parser = argparse.ArgumentParser(
+        description="Make a small dataset for unit testing"
+    )
     parser.add_argument(
         "--input-filepath",
         type=str,
@@ -38,12 +40,17 @@ def main():
 
     train_x, train_y = torch.Tensor(train["images"]), torch.Tensor(train["labels"])
     test_x, test_y = torch.Tensor(test["images"]).view(-1, 28, 28), torch.Tensor(
-        test["labels"])
+        test["labels"]
+    )
 
-    train_x = train_x[0:args.N_obs, :, :].clone()
-    train_y = train_y[0:args.N_obs, ].clone()
-    test_x = test_x[0:args.N_obs, :, :].clone()
-    test_y = test_y[0:args.N_obs, ].clone()
+    train_x = train_x[0 : args.N_obs, :, :].clone()
+    train_y = train_y[
+        0 : args.N_obs,
+    ].clone()
+    test_x = test_x[0 : args.N_obs, :, :].clone()
+    test_y = test_y[
+        0 : args.N_obs,
+    ].clone()
 
     train = TensorDataset(train_x, train_y)
     test = TensorDataset(test_x, test_y)
