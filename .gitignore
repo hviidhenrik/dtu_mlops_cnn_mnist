@@ -76,7 +76,10 @@ target/
 .ipynb_checkpoints/
 
 # exclude archive and data from source control by default
-/data/
+/data/external
+/data/interim
+/data/processed
+/data/raw
 archived/
 *ubyte*
 wandb/
@@ -91,5 +94,4 @@ outputs/
 
 # Mypy cache
 .mypy_cache/'
-/data
-/outputs/
+

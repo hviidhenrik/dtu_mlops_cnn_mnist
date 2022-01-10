@@ -71,6 +71,7 @@ def save_train_and_test_as_tensor_datasets(
     """
     torch.save(train, output_filepath + "train.pt")
     torch.save(test, output_filepath + "test.pt")
+    print(f"Saved datasets to {output_filepath} folder")
 
 
 def load_train_and_test_tensor_datasets(filepath: str) -> Tuple[Any, Any]:

@@ -18,10 +18,19 @@ This will fetch the template structure and guide you through a short setup proce
 naming the project, its repository, Python version etc.
 
 ## Updating requirements.txt file
-Use `pip list --format=freeze > requirements.txt` to update the requirements.txt file.
-I tried the `pipreqs` package, but this doesn't seem to detect all the imported 
-modules in the project files. Moreover, it seems to not be able to detect the installed 
-version of each module, as it simply scans the project files and not the actual 
+Use `pip list --format=freeze > requirements.txt` to update the requirements.txt file. 
+This has the disadvantage of simply listing every single package installed 
+in the environment at the time, rather than just the packages imported 
+by the project files. 
+
+To do this, the `pipreqs` package is handy. Use it with:
+    
+    pipreqs .
+
+However, this doesn't always seem to detect 
+all the imported modules in the project files. Moreover, it seems to 
+not be able to detect the installed version of each module, as it simply scans the 
+project files and not the actual 
 environment with the installed modules. Therefore, it simply puts the newest version 
 of the found modules, which can cause compatibility issues in some cases. 
 
@@ -46,7 +55,6 @@ can be given via the command line. A learning curve will be saved to reports/fig
 
 
 ## Makefile
-
 I did not manage to get the Makefile working. I have some conflicting installation on 
 my computer, it seems, that prevents make from working.
 
