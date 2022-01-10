@@ -3,7 +3,7 @@ import os
 import pytest
 import torch
 
-from tests import _PATH_SAVED_MODELS, _PATH_DATA_MNIST_PROCESSED, _CNN_MODEL_PATH
+from tests import _PATH_SAVED_MODELS, _PATH_DATA_MNIST_PROCESSED_TEST, _CNN_MODEL_PATH
 
 
 @pytest.mark.skipif(not os.path.isfile(_CNN_MODEL_PATH), reason=f"No saved CNN model found in {_PATH_SAVED_MODELS}")
@@ -15,7 +15,7 @@ def test_CNN_model_input_output_match(batch_size):
     :param batch_size: different batch sizes are tested for
     """
     model = torch.load(_CNN_MODEL_PATH)
-    new_data = torch.load(os.path.join(_PATH_DATA_MNIST_PROCESSED, "test.pt")).tensors
+    new_data = torch.load(os.path.join(_PATH_DATA_MNIST_PROCESSED_TEST, "test.pt")).tensors
     x_new = new_data[0][0:batch_size, :, :]
     y_pred = model(x_new).argmax(dim=1, keepdim=True)
 
