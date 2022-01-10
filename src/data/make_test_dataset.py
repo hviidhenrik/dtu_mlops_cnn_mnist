@@ -41,9 +41,9 @@ def main():
         test["labels"])
 
     train_x = train_x[0:args.N_obs, :, :].clone()
-    train_y = train_x[0:args.N_obs, :, :].clone()
+    train_y = train_y[0:args.N_obs, ].clone()
     test_x = test_x[0:args.N_obs, :, :].clone()
-    test_y = test_x[0:args.N_obs, :, :].clone()
+    test_y = test_y[0:args.N_obs, ].clone()
 
     train = TensorDataset(train_x, train_y)
     test = TensorDataset(test_x, test_y)

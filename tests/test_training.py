@@ -9,7 +9,7 @@ from src.models.CNN.model import *
 from tests import _PATH_DATA
 
 
-def test_CNN_model_input_output_match():
+def test_CNN_model_training():
     """
     Tests if the MNIST CNN model can run a single epoch without error and subsequently trains another epoch. The
     final loss is then asserted to be lower than the initial, indicating correct training.
@@ -21,8 +21,8 @@ def test_CNN_model_input_output_match():
     )
 
     # load data into dataloaders
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size=1000)
-    test_loader = torch.utils.data.DataLoader(test_data, batch_size=1000)
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size=250)
+    test_loader = torch.utils.data.DataLoader(test_data, batch_size=250)
 
     model = Net()
     optimizer = optim.Adadelta(model.parameters(), lr=1.0)
