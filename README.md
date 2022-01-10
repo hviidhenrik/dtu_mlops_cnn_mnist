@@ -86,3 +86,27 @@ and Biases: https://wandb.ai/hviidhenrik. This is implemented in the VAE example
    - visualization of generated samples using Gaussian noise fed through 
 the trained decoder
 
+## Unit tests
+Testing code is important. The Pytest framework is useful for this and is installed
+with pip:
+
+    pip install pytest 
+
+A folder called `tests` in the project root should then contain test 
+files with all unit tests. These are then run by invoking pytest:
+
+    pytest tests/
+
+### Coverage
+How much of the code is covered by the unit tests can be assessed using coverage
+reports. Run:
+
+    pip install coverage
+
+And then:
+
+    coverage run -m pytest tests/
+    coverage report -m
+
+To get a percentage overview of the number of lines covered by the tests. 
+The `-m` flag simply appends the line numbers that are NOT covered. 

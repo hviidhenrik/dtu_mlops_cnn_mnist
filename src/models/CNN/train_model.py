@@ -12,7 +12,12 @@ from src.data.data import load_train_and_test_tensor_datasets
 from src.models.CNN.model import *
 
 
-def main():
+def main() -> None:
+    """
+    Main function that calls the training loop and trains the model. Heavily inspired by the example model at:
+    https://github.com/pytorch/examples/tree/master/mnist
+
+    """
     # Training settings
     parser = argparse.ArgumentParser(description="PyTorch corrupted MNIST model")
     parser.add_argument(
@@ -52,12 +57,6 @@ def main():
     )
     parser.add_argument(
         "--no-cuda", action="store_true", default=False, help="disables CUDA training"
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        default=False,
-        help="quickly check a single pass",
     )
     parser.add_argument(
         "--seed", type=int, default=1, metavar="S", help="random seed (default: 1)"

@@ -6,36 +6,36 @@ from numpy.core.records import ndarray
 from torch.utils.data import TensorDataset
 
 
-def _load_and_concat_all_train_data_files(path: str) -> Dict[str, ndarray]:
+def _load_and_concat_all_train_data_files(path: str, num_files: int = 5) -> Dict[str, ndarray]:
     """
     Internal function used by mnist(). Loads all the training data files for the MNIST model
 
     :param path: the path with the data
+    :param num_files: the number of subsets of the data that must be loaded. Min 1 and max 5
     :return: a dictionary with the data as images and labels
     """
+    assert 1 <= num_files <= 5
     train_images = []
     train_labels = []
-    for i in range(5):
+    for i in range(num_files):
         train = np.load(path + f"train_{i}.npz")
         train_images.append(train["images"])
         train_labels.append(train["labels"])
 
     return {
         "images": np.array(train_images).reshape(-1, 28, 28),
-        "labels": np.array(train_labels).reshape(
-            -1,
-        ),
+        "labels": np.array(train_labels).reshape(-1,),
     }
 
 
-def mnist(path: str) -> Tuple[Any, Any]:
+def mnist(path: str, **kwargs) -> Tuple[Any, Any]:
     """
     Loads all the training data and test data for the MNIST model.
 
     :param path: the path with the location of the data
     :return: a tuple with the training and test data
     """
-    train = _load_and_concat_all_train_data_files(path)
+    train = _load_and_concat_all_train_data_files(path, **kwargs)
     test = np.load(path + "test.npz")
     return train, test
 

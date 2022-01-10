@@ -1,5 +1,8 @@
 from __future__ import print_function
 
+import pytest
+from typing import Any
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -18,6 +21,12 @@ class Net(nn.Module):
         self.acc = []
 
     def forward(self, x):
+        """
+        Computes the forward pass
+
+        :param x: Tensor to do the forward pass on
+        :return: returns the output of the network, i.e. the log softmax of the final output
+        """
         x = x.view(-1, 1, 28, 28)
         x = self.conv1(x)
         x = F.relu(x)
@@ -34,7 +43,16 @@ class Net(nn.Module):
         return output
 
 
-def train(args, model, train_loader, optimizer, epoch):
+def train(args: Any, model: Any, train_loader: Any, optimizer: Any, epoch: int) -> None:
+    """
+    Trains the network for a single epoch
+
+    :param args: the command line parameters specified by the user
+    :param model: the model to conduct the training for
+    :param train_loader: appropriate train loader object with training data
+    :param optimizer: the torch optimizer object
+    :param epoch: the current epoch, integer
+    """
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         optimizer.zero_grad()
@@ -52,17 +70,21 @@ def train(args, model, train_loader, optimizer, epoch):
                     loss.item(),
                 )
             )
-            if args.dry_run:
-                break
 
+@pytest.mark.skip()
+def test(model: Any, test_loader: Any):
+    """
+    Tests the model. Usually called at the end of each training epoch.
 
-def test(model, device, test_loader):
+    :param model: the torch model to test
+    :param test_loader: appropriate torch dataloader with test data
+    """
     model.eval()
     test_loss = 0
     correct = 0
     with torch.no_grad():
         for data, target in test_loader:
-            data, target = data.to(device), target.to(device)
+            data, target = data, target
             output = model(data)
             test_loss += F.nll_loss(
                 output, target.type(torch.long), reduction="sum"
