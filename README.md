@@ -117,4 +117,19 @@ And then:
     coverage report -m
 
 To get a percentage overview of the number of lines covered by the tests. 
-The `-m` flag simply appends the line numbers that are NOT covered. 
+The `-m` flag simply appends the line numbers that are NOT covered.
+
+## Cloud computing
+With a Google Cloud Platform account setup, a new VM instance with PyTorch 
+can be created at the command line using: 
+
+    export IMAGE_FAMILY="pytorch-latest-cpu"
+    export ZONE="us-west1-b"
+    export INSTANCE_NAME="my-instance"
+
+    gcloud compute instances create $INSTANCE_NAME \
+    --zone=$ZONE \
+    --image-family=$IMAGE_FAMILY \
+    --image-project=deeplearning-platform-release
+
+See e.g.: https://cloud.google.com/deep-learning-vm/docs/pytorch_start_instance
