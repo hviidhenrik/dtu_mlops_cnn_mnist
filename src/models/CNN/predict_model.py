@@ -8,6 +8,13 @@ from src.visualization.visualize import *
 @click.argument("model_filepath", type=click.Path())
 @click.argument("data_filepath", type=click.Path())
 def main(model_filepath: str, data_filepath: str):
+    """
+    Runs the predict function of the model on given data
+
+    :param model_filepath:
+    :param data_filepath:
+    :return:
+    """
     model = torch.load(model_filepath)
     new_data = torch.load(data_filepath).tensors
     idx = np.random.choice(len(new_data[0]), 5, replace=False)

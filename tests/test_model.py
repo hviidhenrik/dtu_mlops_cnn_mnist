@@ -8,7 +8,7 @@ from tests import _CNN_MODEL_PATH, _PATH_DATA_MNIST_PROCESSED_TEST, _PATH_SAVED_
     not os.path.isfile(_CNN_MODEL_PATH),
     reason=f"No saved CNN model found in {_PATH_SAVED_MODELS}",
 )
-@pytest.mark.parametrize("batch_size", [1, 5, 10, 128])
+@pytest.mark.parametrize("batch_size", [1, 5, 10, 16, 128])
 def test_CNN_model_input_output_match(batch_size):
     """
     Tests if the output from the trained model matches the expected dimensions, given the input.

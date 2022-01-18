@@ -14,7 +14,8 @@ from src.models.CNN.model import *
 
 def main() -> None:
     """
-    Main function that calls the training loop and trains the model. Heavily inspired by the example model at:
+    Main function that calls the training loop and trains the model.
+    Heavily inspired by the example model at:
     https://github.com/pytorch/examples/tree/master/mnist
 
     """
