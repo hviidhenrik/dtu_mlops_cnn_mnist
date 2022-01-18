@@ -37,6 +37,7 @@ of the found modules, which can cause compatibility issues in some cases.
 ## Setup
 First install all requirements by running:
 
+    pip install -e .
     pip install -r requirements.txt
 
 To run the project, do the following:
